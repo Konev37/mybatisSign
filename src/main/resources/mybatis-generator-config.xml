@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<beans xmlns="http://www.springframework.org/schema/beans"-->
+<!--       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">-->
+
+<!--</beans>-->
+
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!-- 引入配置文件 -->
+    <properties resource="application.properties"/>
+    <context id="myContext" targetRuntime="MyBatis3" defaultModelType="flat">
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
+        <commentGenerator>
+            <!-- 生成的注释中不包含时间戳 -->
+            <property name="suppressDate" value="true"/>
+            <!-- 添加 db 表中字段的注释 -->
+            <property name="addRemarkComments" value="true"/>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <jdbcConnection driverClass="${spring.datasource.driver-class-name}"
+                        connectionURL="${spring.datasource.url}"
+                        userId="${spring.datasource.username}"
+                        password="${spring.datasource.password}">
+                        <!-- ${} 来源于 application-dev.properties 中的字段-->
+            <!--高版本的 mysql-connector-java 需要设置 nullCatalogMeansCurrent=true-->
+            <property name="nullCatalogMeansCurrent" value="true"/>
+        </jdbcConnection>
+        <javaModelGenerator targetPackage="com.example.mybatisSign.models" targetProject="src/main/java">
+            <!-- 是否让schema作为包的后缀，默认为false -->
+<!--            <property name="enableSubPackages" value="false"/>-->
+            <!-- 是否针对string类型的字段在set方法中进行修剪，默认false -->
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="mappers" targetProject="src/main/resources">
+<!--            <property name="enableSubPackages" value="false"/>-->
+        </sqlMapGenerator>
+        <javaClientGenerator targetPackage="com.example.mybatisSign.DAO" targetProject="src/main/java" type="XMLMAPPER">
+            <!--<property name="enableSubPackages" value="false"/>-->
+        </javaClientGenerator>
+
+        <!-- schema为数据库名，oracle需要配置，mysql不需要配置。
+         tableName为对应的数据库表名
+         domainObjectName 是要生成的实体类名(可以不指定)
+         enableXXXByExample 默认为 true， 为 true 会生成一个对应 Example 帮助类，帮助你进行条件查询，不想要可以设为 false
+         -->
+        <table schema="" tableName="sign_table" domainObjectName="User"
+               enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false" selectByExampleQueryId="false">
+            <!--是否使用实际列名,默认为false-->
+            <!--<property name="useActualColumnNames" value="false" />-->
+        </table>
+
+    </context>
+
+
+</generatorConfiguration>

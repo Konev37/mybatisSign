@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+<!--    <link href="http://localhost:8080/springboot_mybatis_demo/css/MyStyleSheet.css" type="text/css" rel="stylesheet">-->
+    <title>User Index</title>
+</head>
+<body>
+<h1>This is User Index View</h1>
+<form action="#" th:action="@{/UserController/Login/DoLogin}" th:object="${User}" method="post">
+    <label>用户名：
+        <input type="text" th:field="*{username}"/>
+    </label>
+    <br>
+    <label>密码：
+        <input type="password" th:field="*{password}"/>
+    </label>
+    <br>
+    <label style="color: red" th:text="${LoginMessage}" th:if="${not #strings.isEmpty(LoginMessage)}">
+
+    </label>
+    <br>
+    <label>
+        <button type="submit" name="btn" value="Login">登录</button>
+    </label>
+    <button type="submit" name="btn" value="Register">注册</button>
+</form>
+</body>
+</html>
